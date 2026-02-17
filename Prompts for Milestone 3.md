@@ -333,7 +333,6 @@ Worker node + audit layer.
 
 XML only:
 
-```
 <thinking>...</thinking>
 <verdict>
   <status>OK | FAIL</status>
@@ -346,7 +345,6 @@ XML only:
   <highlight>...</highlight>
   <flags>...</flags>
 </verdict>
-```
 
 ### Task
 
@@ -419,7 +417,6 @@ Decision Loop Controller.
 
 XML only:
 
-```
 <audit>
   <status>PASS | FAIL</status>
   <violations>
@@ -430,7 +427,6 @@ XML only:
     </bullet>
   </violations>
 </audit>
-```
 
 If PASS:
 
@@ -464,7 +460,6 @@ After execution, output:
 
 ## TRACE LOG FORMAT
 
-```
 [TRACE LOG]
 [JUDGE] -> APPROVE
 [WORKER] -> REWRITE
@@ -472,7 +467,6 @@ After execution, output:
 [WORKER] -> RETRY (Subtractive repair)
 [CRITIC] -> PASS
 [RESULT] -> FINAL RESUME
-```
 
 Rules:
 
