@@ -1406,6 +1406,7 @@ graph LR
 ```
 
 ### 3.3 The Orchestrator Logic
+
 ```
 #### VARIABLES
 
@@ -1563,7 +1564,7 @@ Output PASS or FAIL.
 
 ### 3.5 Advanced Simulation Log
 
-#### Stress Test Input (scenario)
+**Stress Test Input (scenario)**
 
 * Judge approved rewrite targets.
 * Worker output is mostly valid **but contains a fabricated metric** not present in the original resume, e.g.:
@@ -1571,7 +1572,7 @@ Output PASS or FAIL.
   * Worker bullet includes: “...improving processing efficiency by **35%**”
   * Original resume contains no “35%” (fabricated)
 
-#### TRACE LOG (Decision Path)
+**TRACE LOG (Decision Path)**
 
 [JUDGE] -> APPROVE
 
