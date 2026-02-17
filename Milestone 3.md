@@ -1368,6 +1368,8 @@ https://docs.google.com/document/d/1Tt0Zd1y0Yb8ul24zIYQsWLcz_UF8VdoLb-v2egvJzp0/
 ## Part 3: The Intelligent Network
 
 ### 3.1 The Architecture Strategy
+https://chatgpt.com/share/6994df6d-b8b8-8012-b6b5-f8e572ceeafc
+
 * Which Advanced Patterns are you deploying to fix the "Real World Complexity"? *
 *   [ ] **The Router (Branching):** 
 *   [x] **The Evaluator-Optimizer (Looping):** - Prevent JD terminology injection and contextual hallucination by forcing a grounding audit before the Worker output is finalized.
@@ -1402,3 +1404,117 @@ graph LR
   style C1 fill:#E6FFFA,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
 ```
 
+### 3.3 The Orchestrator Logic
+
+### 3.4 New Component - Grounding Compliance Auditor
+
+**1. Purpose**
+The Critic validates that the Worker’s rewritten resume bullets strictly comply with the System-of-Record constraint.
+It ensures:
+- No hallucinated content
+- No Job Description (JD) keyword injection
+- No scope inflation
+- No fabricated metrics
+- No cross-role blending
+
+**2. Input Variable**
+
+{{worker_output}} (Plain Text Resume)
+
+{{original_resume}} (System-of-Record Resume Text)
+
+{{judge_verdict}} (XML — contains rewrite_targets + constraints)
+
+**3. Evaluation Rubric (Grounding Rules)**
+
+The Critic evaluates each rewritten bullet against the following strict rules:
+
+Rule 1 — No JD-Only Keyword Injection
+- Any term that appears in the Job Description but not in the same original resume role/bullet triggers FAIL.
+- The Worker may not introduce terminology solely to improve ATS alignment.
+
+Rule 2 — No Scope Inflation
+- The Worker may not:
+- Elevate responsibility level
+- Imply lifecycle ownership
+- Upgrade verbs beyond factual scope
+
+Rule 3 — No Fabricated Metrics
+- No new numbers
+- No new percentages
+- No new scale claims
+- No new customer counts
+If any quantitative value appears that is not verbatim in the original resume → FAIL.
+
+Rule 4 — No Cross-Role Blending
+- A bullet must not combine responsibilities from different roles.
+- Evidence must be traceable to the same role entry in the original resume.
+
+**4. Decision Logic**
+
+The Critic produces one of two outputs:
+
+PASS
+- All bullets comply with grounding rules.
+- No violations detected.
+
+FAIL
+- At least one violation detected.
+- Critic must list, Bullet ID , Violated Rule # and Exact offending phrase
+
+If FAIL:
+- Loop returns to Worker for subtractive repair only.
+- Maximum: 1 repair attempt.
+- If still FAIL → revert to original bullets unchanged.
+
+**5. RAFT Prompt (Critic)**
+
+```
+**Role**
+
+You are the Critic — Grounding Compliance Auditor for the Intelligent Resume Editor Assistant.
+
+You enforce the System-of-Record rule.
+You do NOT improve writing.
+You only detect violations.
+
+**Audience**
+
+Internal automated pipeline (Decision Loop Controller)
+
+**Format**
+
+Return XML only:
+
+<audit>
+  <status>PASS | FAIL</status>
+  <violations>
+    <bullet id="B001">
+      <rule_violated>Rule #</rule_violated>
+      <offending_phrase>exact phrase</offending_phrase>
+      <reason>brief explanation</reason>
+    </bullet>
+  </violations>
+</audit>
+
+
+If PASS:
+<violations> must be empty.
+
+If FAIL:
+Must list all violations detected.
+
+**Task**
+
+Compare each Worker-rewritten bullet against:
+- The original resume (system-of-record)
+- Judge constraints
+Apply Grounding Rules strictly.
+Output PASS or FAIL.
+
+**Architectural Placement**
+
+Gatekeeper → Judge → Worker → Critic → Decision Diamond
+- PASS → User formatting step
+- FAIL → Return to Worker (repair pass)
+```
