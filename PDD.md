@@ -1213,32 +1213,37 @@ Rewrite strategy: strengthen bullets that already reference modeling and collabo
 </verdict>
 ```
 ## Node 3 Output — Worker
-
+```
 - Built machine learning regression models for customer churn prediction using Python on structured datasets.
 - Developed classification models for marketing analytics using statistical techniques on structured data.
 - Collaborated with cross-functional teams to deliver analytics insights and present findings to stakeholders.
 - Implemented supervised learning techniques in a machine learning capstone project.
 ```
-### 2.5 Value Definition (The KPI Dashboard)
+
+## 2.5 Value Definition (The KPI Dashboard)
 
 ChatGPT ROI Calculation Link:
 
 https://chatgpt.com/share/698d5a1f-3e3c-8012-8a77-1e6b8e92abcd
+
+Assumptions:
+- Manual time per application: 90 minutes (1.5 hours)
+- AI time per application: 10 minutes (0.17 hours)
+- Average applications per week: 5 per week
+
 
 | Metric Category | Current State (As-Is) | Target State (To-Be) | Estimated Impact |
 |-----------------|-----------------------|----------------------|------------------|
 | Efficiency (Time per Application) | 90 minutes | 10 minutes | 88% reduction |
 | Weekly Time Spent (5 applications) | 7.5 hours | 0.83 hours | 6.67 hours saved/week |
 | Annual Hours Saved (52 weeks) | 390 hours | 43 hours | 347 hours saved/year |
-| Labor Value Equivalent ($25/hr benchmark) | $9,750/year | $1,075/year | $8,675 annual value created |
 | Quality Risk (ATS Misalignment) | High – manual guessing | Structured alignment + review | Reduced rejection risk |
 | Cognitive Load | High anxiety & uncertainty | Guided AI-assisted drafting | Significant reduction |
 
 #### Hard Metric
 
-**Annual Time Saved:** 347 hours  
-**Annual Labor Value Equivalent:** $8,675 (at $25/hour benchmark)
-```
+**Annual Time Saved:** 347 hours
+
 ## Potential Changes (Claude)
 
 Claude Chat Link:  
