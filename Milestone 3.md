@@ -989,8 +989,6 @@ Research Assistant | Nov 2018 – Sep 2019
 - Managed $50K in research equipment and trained 60+ undergraduate students on proper usage.
 - Supported development of 10+ new products launched in Q1 2019.
 
-```
-
 # Output
 
 Run the sequence and provide the output for all three steps clearly labeled.
