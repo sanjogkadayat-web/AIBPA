@@ -1,4 +1,3 @@
-
 # Process Design Document (PDD) - Milestone 3
 **Team Name:** Albina, Jack and Sanjog (Team JAS)
 
@@ -45,7 +44,7 @@ Submits application through job portal
 ### 1.2 The "As-Is" Diagram (Mermaid)
 
 ```mermaid
-flowchart LR
+graph LR
 
 A[The student/user is<br/>notified on a new job<br/>posting] --> 
 B[Job posting found] --> 
@@ -1375,5 +1374,31 @@ https://docs.google.com/document/d/1Tt0Zd1y0Yb8ul24zIYQsWLcz_UF8VdoLb-v2egvJzp0/
 *   [ ] **The Orchestrator-Workers (Parallel):**
 
 ### 3.2 The Advanced Logic Map (Mermaid)
+```mermaid
+graph LR
 
+  subgraph MVW["Automated Pipeline MVW"]
+    direction TD
+    G1["🤖 Gatekeeper — Extraction<br>Extract skills, keywords, requirements from JD + Resume"]
+    G2["⚖️ Judge — Reasoning<br>Decide alignment + rewrite targets"]
+    G3["✍️ Worker — Drafting<br>Rewrite bullets per Judge verdict"]
+    C1["🧪 Critic — Grounding Audit<br>Check JD keyword injection &amp; hallucinations"]
+    D{"💎 Pass grounding checks?"}
+  end
+
+  A["Job posting found"] --> B["Opens Old resume, Job description"]
+  B --> G1
+  G1 --> G2
+  G2 --> G3
+  G3 --> C1
+  C1 --> D
+  D -- No --> G3
+  D -- Yes --> E["User reformats the template"]
+  E --> F["User submits application"]
+
+  style G1 fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style G2 fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style G3 fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style C1 fill:#E6FFFA,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+```
 
