@@ -1,3 +1,4 @@
+
 # Process Design Document (PDD) - Milestone 3
 **Team Name:** Albina, Jack and Sanjog (Team JAS)
 
@@ -1370,5 +1371,9 @@ https://docs.google.com/document/d/1Tt0Zd1y0Yb8ul24zIYQsWLcz_UF8VdoLb-v2egvJzp0/
 ### 3.1 The Architecture Strategy
 * Which Advanced Patterns are you deploying to fix the "Real World Complexity"? *
 *   [ ] **The Router (Branching):** 
-*   [ ] **The Evaluator-Optimizer (Looping):** 
-*   [ ] **The Orchestrator-Workers (Parallel):** 
+*   [x] **The Evaluator-Optimizer (Looping):** - Prevent JD terminology injection and contextual hallucination by forcing a grounding audit before the Worker output is finalized.
+*   [ ] **The Orchestrator-Workers (Parallel):**
+
+### 3.2 The Advanced Logic Map (Mermaid)
+
+
