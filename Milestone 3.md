@@ -967,27 +967,28 @@ Preferred Qualifications:
 - Demonstrated analytical thinking and ownership mindset.
 
 2. Resume below
-```
-Resume Worded — London, United Kingdom
+
+**Resume Worded — London, United Kingdom**
 Data Analyst | Aug 2021 – Present
 - Managed large datasets with 20K observations using regular expressions and selected key variables to build statistical models.
 - Built explanatory models for use cases and presented insights to 100+ project stakeholders and 40+ non-technical audiences.
 - Cleaned and prepared data for predictive modeling using information from 1,200+ customers across construction and financial sectors.
 - Collaborated with 30+ data analysts, data scientists, and project managers on multiple concurrent projects.
 
-Polyhire — London, United Kingdom
+**Polyhire — London, United Kingdom**
 Data Specialist | Oct 2019 – Jul 2021
 - Provided technical support for new software systems by designing database structures and tables based on 20+ business requirements.
 - Developed dashboards using SSRS and Tableau to track 30+ KPIs across departmental operations.
 - Expanded enterprise data storage from 25TB to 60TB by optimizing archival database architecture.
 - Recommended platform upgrades following internal audits, improving outage recovery time by 80%.
 
-Growthsi — London, United Kingdom & Barcelona, Spain
+**Growthsi — London, United Kingdom & Barcelona, Spain**
 Research Assistant | Nov 2018 – Sep 2019
 - Conducted end-to-end data collection using qualitative and quantitative methods for 10+ research projects.
 - Analyzed quantitative data with a 7-member research team, producing 30 publications and 20+ presentations.
 - Managed $50K in research equipment and trained 60+ undergraduate students on proper usage.
 - Supported development of 10+ new products launched in Q1 2019.
+
 ```
 
 # Output
@@ -1380,7 +1381,7 @@ https://chatgpt.com/share/6994df6d-b8b8-8012-b6b5-f8e572ceeafc
 graph LR
 
   subgraph MVW["Automated Pipeline MVW"]
-    direction TD
+    direction LR
     G1["🤖 Gatekeeper — Extraction<br>Extract skills, keywords, requirements from JD + Resume"]
     G2["⚖️ Judge — Reasoning<br>Decide alignment + rewrite targets"]
     G3["✍️ Worker — Drafting<br>Rewrite bullets per Judge verdict"]
@@ -1405,6 +1406,53 @@ graph LR
 ```
 
 ### 3.3 The Orchestrator Logic
+```
+#### VARIABLES
+
+* `ORIGINAL_RESUME` = System-of-Record resume text (source of truth)
+* `JD_TEXT` = Job Description text
+* `GATEKEEPER_JSON` = extracted + normalized JSON (JD + resume + bullets + overlap + flags)
+* `JUDGE_VERDICT_XML` = Judge decision output (rewrite_targets, constraints, no_change, flags)
+* `WORKER_OUTPUT` = current draft resume bullets (plain text)
+* `CRITIC_AUDIT_XML` = Critic audit result (`PASS|FAIL` + violations)
+* `RETRY_COUNT` = integer, starts at `0`
+* `MAX_RETRIES` = `1`
+* `FINAL_RESUME` = output delivered to user (plain text bullets)
+
+#### CONDITIONS
+
+**Primary Control Flow**
+
+* IF `JUDGE_VERDICT_XML.status = FAIL`
+  → `FINAL_RESUME = ORIGINAL_RESUME` (no rewrite)
+
+* ELSE (Judge status OK / approve rewrite)
+  → proceed to Worker + Critic loop
+
+**Worker → Critic Decision + Single Retry Loop**
+
+* WHILE `RETRY_COUNT <= MAX_RETRIES`
+
+  1. `[WORKER]` generates `WORKER_OUTPUT`
+
+     * If `RETRY_COUNT = 0`: normal rewrite (per Judge targets)
+     * If `RETRY_COUNT = 1`: **subtractive repair only** (remove violating phrases; revert bullet(s) if needed)
+  2. `[CRITIC]` evaluates `WORKER_OUTPUT` vs `ORIGINAL_RESUME` + `JUDGE_VERDICT_XML`
+  3. IF `CRITIC_AUDIT_XML.status = PASS`
+
+     * set `FINAL_RESUME = WORKER_OUTPUT`
+     * BREAK loop
+  4. ELSE (Critic FAIL)
+
+     * IF `RETRY_COUNT = MAX_RETRIES`
+
+       * set `FINAL_RESUME = ORIGINAL_RESUME` (fail-safe)
+       * BREAK loop
+     * ELSE
+
+       * `RETRY_COUNT = RETRY_COUNT + 1`
+       * LOOP (Worker retry)
+```
 
 ### 3.4 New Component - Grounding Compliance Auditor
 
@@ -1470,7 +1518,7 @@ If FAIL:
 **5. RAFT Prompt (Critic)**
 
 ```
-**Role**
+#Role
 
 You are the Critic — Grounding Compliance Auditor for the Intelligent Resume Editor Assistant.
 
@@ -1478,11 +1526,11 @@ You enforce the System-of-Record rule.
 You do NOT improve writing.
 You only detect violations.
 
-**Audience**
+#Audience
 
 Internal automated pipeline (Decision Loop Controller)
 
-**Format**
+#Format
 
 Return XML only:
 
@@ -1504,17 +1552,57 @@ If PASS:
 If FAIL:
 Must list all violations detected.
 
-**Task**
+#Task
 
 Compare each Worker-rewritten bullet against:
 - The original resume (system-of-record)
 - Judge constraints
 Apply Grounding Rules strictly.
 Output PASS or FAIL.
-
-**Architectural Placement**
-
-Gatekeeper → Judge → Worker → Critic → Decision Diamond
-- PASS → User formatting step
-- FAIL → Return to Worker (repair pass)
 ```
+
+### 3.5 Advanced Simulation Log
+
+#### Stress Test Input (scenario)
+
+* Judge approved rewrite targets.
+* Worker output is mostly valid **but contains a fabricated metric** not present in the original resume, e.g.:
+
+  * Worker bullet includes: “...improving processing efficiency by **35%**”
+  * Original resume contains no “35%” (fabricated)
+
+#### TRACE LOG (Decision Path)
+
+[JUDGE] -> APPROVE
+
+* Status: OK
+* Action: Provide rewrite_targets for specific bullets.
+
+[WORKER] -> REWRITE
+
+* Output: Draft rewritten bullets created per Judge instructions.
+* Issue introduced: Added fabricated metric “35%” in bullet B003.
+
+[CRITIC] -> FAIL (Reason: Fabricated metric)
+
+* Violation:
+
+  * Bullet: B003
+  * Rule Violated: Rule 3 — No Fabricated Metrics
+  * Offending phrase: “35%”
+
+[WORKER] -> RETRY (Subtractive repair)
+
+* Retry Count: 1 of 1
+* Action: Remove the fabricated metric phrase.
+* If bullet becomes unclear after removal → revert bullet B003 to original system-of-record text.
+* New Output: Revised bullets with metric removed (or reverted).
+
+[CRITIC] -> PASS
+
+* All bullets now grounded to Original Resume.
+* No JD keyword injection, no scope inflation, no fabricated metrics, no cross-role blending detected.
+
+[RESULT] -> FINAL RESUME
+
+* Final output delivered: Worker’s repaired resume bullets (PASS-compliant).
