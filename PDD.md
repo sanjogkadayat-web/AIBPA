@@ -620,7 +620,7 @@ If:
 
 ChatGPT Simulation Link:
 
-https://chatgpt.com/share/698d5573-3e3c-8012-bde8-3bd140e82f90
+https://chatgpt.com/share/6994c0da-b888-8012-8f0e-3d9232d5e4a7
 
 ## Input
 
@@ -721,7 +721,7 @@ JSON only. Output MUST be valid JSON and match this schema:
 
 - Ingest:
   - Job Description text (paragraph, bullets, or mixed).
-  - Resume text extracted from a PDF (provided as plain text in `resume_text`).
+  - Resume text extracted.
 
 - Extract ONLY the following (no more, no less):
   - Hard skills, soft skills
@@ -734,7 +734,6 @@ JSON only. Output MUST be valid JSON and match this schema:
 
 - Normalization rules:
   - Normalize synonyms and variants (e.g., capitalization, plural/singular, common aliases).
-  - Do NOT paraphrase bullet meaning; only normalize terms/keywords.
   - Keep both `*_raw` and `*_normalized` where applicable.
 
 - Bullet handling:
@@ -746,7 +745,6 @@ JSON only. Output MUST be valid JSON and match this schema:
 
 - Use ONLY information present in the Job Description text and Resume text.
 - Never infer, guess, or invent missing skills, experience, certifications, tools, metrics, or responsibilities.
-- Never rewrite bullets beyond term normalization.
 - Never rank, score, or judge alignment quality.
 - Never add external knowledge or assumptions.
 
@@ -758,11 +756,10 @@ You are **Judge — ATS Alignment Reasoning Engine** for the Intelligent Resume 
 
 You evaluate structured extraction data and determine resume alignment quality and rewrite strategy.
 
-You do NOT draft resume content.
 
 # Audience
 
-Internal system (Worker node + audit layer)
+Internal system (Worker node)
 
 # Format
 
@@ -832,8 +829,6 @@ Explicit Logic Constraints:
 
 - Use ONLY Gatekeeper JSON.
 - Do NOT invent skills, metrics, certifications, or experience.
-- Do NOT soften or exaggerate alignment.
-- Do NOT draft rewritten bullets.
 - If Gatekeeper returned null fields, zero overlap, or low-quality JD:
   - Return status FAIL
   - Return neutral alignment_score = 3
@@ -861,21 +856,17 @@ Human job applicant
 
 # Format  
 
-Plain text resume bullets ONLY.  
-No JSON.  
+Plain Text Resume with distinct sections and bullets for all the section providedNo JSON.  
 No XML.  
 No explanations.  
-Return only the final ordered list of resume bullets.
 
 # Task  
 
 - Rewrite bullets based strictly on original resume content.  
 - Preserve factual accuracy at all times.  
-- Strengthen language without adding new facts.  
 - Improve clarity and flow while keeping original meaning intact.  
 - Reorder bullets if instructed by the Judge.  
 - Do NOT modify job titles, companies, or dates.  
-- Do NOT rewrite bullets marked “no change.”  
 
 ## HARDENED GROUNDING RULE — SYSTEM OF RECORD ENFORCEMENT
 
@@ -885,20 +876,9 @@ You are strictly prohibited from:
 
 - Adding any skill, tool, methodology, or concept that does not appear verbatim in the same job entry.
 - Introducing Job Description keywords unless they already exist in that exact bullet or role.
-- Adding analytical framing (e.g., “data-driven,” “insights,” “optimization,” “cross-functional,” “problem-solving,” etc.) unless explicitly stated.
 - Fabricating or strengthening metrics (numbers, scope, impact).
 - Blending responsibilities across different roles.
-- Elevating scope, ownership, or impact beyond the original wording.
 
-You may only:
-
-- Clarify phrasing.
-- Improve grammar and flow.
-- Reorder wording.
-- Replace weak verbs with stronger equivalents that do not change meaning.
-
-If a keyword or concept does not exist in the same original bullet or same job entry, it must NOT appear in the rewritten version.
-When uncertain, default to preserving the original phrasing.
 
 # Input
 
@@ -934,213 +914,278 @@ Preferred Qualifications:
 - Strong collaboration and communication skills.
 - Demonstrated analytical thinking and ownership mindset.
 
-2. Resume as attached  
+2. Resume below
+```
+Resume Worded — London, United Kingdom
+Data Analyst | Aug 2021 – Present
+- Managed large datasets with 20K observations using regular expressions and selected key variables to build statistical models.
+- Built explanatory models for use cases and presented insights to 100+ project stakeholders and 40+ non-technical audiences.
+- Cleaned and prepared data for predictive modeling using information from 1,200+ customers across construction and financial sectors.
+- Collaborated with 30+ data analysts, data scientists, and project managers on multiple concurrent projects.
+
+Polyhire — London, United Kingdom
+Data Specialist | Oct 2019 – Jul 2021
+- Provided technical support for new software systems by designing database structures and tables based on 20+ business requirements.
+- Developed dashboards using SSRS and Tableau to track 30+ KPIs across departmental operations.
+- Expanded enterprise data storage from 25TB to 60TB by optimizing archival database architecture.
+- Recommended platform upgrades following internal audits, improving outage recovery time by 80%.
+
+Growthsi — London, United Kingdom & Barcelona, Spain
+Research Assistant | Nov 2018 – Sep 2019
+- Conducted end-to-end data collection using qualitative and quantitative methods for 10+ research projects.
+- Analyzed quantitative data with a 7-member research team, producing 30 publications and 20+ presentations.
+- Managed $50K in research equipment and trained 60+ undergraduate students on proper usage.
+- Supported development of 10+ new products launched in Q1 2019.
+```
 
 # Output
 
 Run the sequence and provide the output for all three steps clearly labeled.
 ```
 ## Gatekeeper Node 1 Output
-```json
-{
+```{
   "meta": {
     "schema_version": "1.0",
-    "timestamp_utc": "2026-02-17T15:30:00Z",
+    "timestamp_utc": "2026-02-17T19:00:00Z",
     "source": {
-      "job_description_format": "bullets",
+      "job_description_format": "mixed",
       "resume_format": "pdf_text",
       "notes": null
     }
   },
   "inputs": {
-    "job_description_text": "Machine Learning Internship – Wayfair ML Team (Boston, MA)",
-    "resume_text": "Resume extracted from PDF"
+    "job_description_text": "Machine Learning Internship – Wayfair ML Team (Boston, MA)...",
+    "resume_text": "Resume Worded — London, United Kingdom..."
   },
   "extraction": {
     "job_description": {
       "hard_skills": [
-        "Machine Learning",
-        "Regression",
-        "Classification",
-        "Recommendation Systems",
-        "Supervised Learning",
-        "Unsupervised Learning",
-        "Deep Learning",
-        "Reinforcement Learning",
-        "Statistics",
-        "Data Structures",
-        "Algorithms",
-        "Structured Programming",
-        "Object-Oriented Programming"
-      ],
-      "soft_skills": [
-        "Collaboration",
-        "Communication",
-        "Analytical Thinking",
-        "Ownership"
-      ],
-      "tools": [
-        "Python",
-        "SQL",
-        "PyTorch",
-        "TensorFlow",
-        "GitHub",
-        "GCP",
-        "Docker",
-        "PySpark"
-      ],
-      "certifications": [],
-      "roles_responsibilities": [
-        "Own parts of the machine learning lifecycle",
-        "Develop and scale machine learning models",
-        "Build regression, classification, and recommendation models",
-        "Implement supervised and unsupervised learning techniques",
-        "Collaborate with engineering teams",
-        "Deploy models and measure business impact",
-        "Uncover insights from large datasets",
-        "Pilot new tools and frameworks"
-      ],
-      "keywords_raw": [
         "machine learning",
         "regression",
         "classification",
-        "recommendation",
+        "recommendation models",
         "supervised learning",
         "unsupervised learning",
-        "deep learning",
-        "reinforcement learning",
         "statistics",
-        "algorithms",
         "data structures",
+        "algorithms",
+        "structured programming",
+        "object-oriented programming",
+        "version control"
+      ],
+      "soft_skills": [
+        "collaboration",
+        "communication",
+        "analytical thinking",
+        "ownership mindset"
+      ],
+      "tools": [
         "python",
         "sql",
+        "github",
         "pytorch",
         "tensorflow",
-        "github",
         "gcp",
         "docker",
-        "pyspark",
-        "business impact"
+        "pyspark"
+      ],
+      "certifications": [],
+      "roles_responsibilities": [
+        "own parts of machine learning lifecycle",
+        "develop and scale machine learning models",
+        "build regression, classification, and recommendation models",
+        "implement supervised and unsupervised learning techniques",
+        "collaborate with engineering teams",
+        "deploy models and measure business impact",
+        "uncover insights from large datasets",
+        "pilot new tools and modeling approaches"
+      ],
+      "keywords_raw": [
+        "Machine Learning",
+        "regression",
+        "classification",
+        "recommendation",
+        "supervised",
+        "unsupervised",
+        "Statistics",
+        "Data Structures",
+        "Algorithms",
+        "Python",
+        "SQL",
+        "GitHub",
+        "PyTorch",
+        "TensorFlow",
+        "GCP",
+        "Docker",
+        "PySpark",
+        "collaboration",
+        "communication",
+        "analytical thinking",
+        "deployment"
       ],
       "keywords_normalized": [
         "machine learning",
         "regression",
         "classification",
-        "recommendation systems",
+        "recommendation models",
         "supervised learning",
         "unsupervised learning",
-        "deep learning",
-        "reinforcement learning",
         "statistics",
-        "algorithms",
         "data structures",
+        "algorithms",
         "python",
         "sql",
+        "github",
         "pytorch",
         "tensorflow",
-        "github",
         "gcp",
         "docker",
         "pyspark",
-        "business impact"
+        "collaboration",
+        "communication",
+        "deployment"
       ]
     },
     "resume": {
       "hard_skills": [
-        "Machine Learning",
-        "Regression",
-        "Classification",
-        "Statistics",
-        "Data Cleaning",
-        "Predictive Modeling"
+        "statistical models",
+        "predictive modeling",
+        "database design",
+        "data collection",
+        "qualitative analysis",
+        "quantitative analysis",
+        "dashboard development"
       ],
       "soft_skills": [
-        "Collaboration",
-        "Communication",
-        "Analytical Thinking"
+        "collaboration",
+        "presentation",
+        "technical support",
+        "training"
       ],
       "tools": [
-        "Python",
-        "SQL",
-        "TensorFlow",
-        "GitHub",
-        "Tableau"
+        "regular expressions",
+        "ssrs",
+        "tableau"
       ],
       "certifications": [],
       "roles_responsibilities_achievements": [
-        "Built regression models for customer churn prediction",
-        "Developed classification models for marketing analytics",
-        "Collaborated with cross-functional teams on analytics projects",
-        "Cleaned and processed large structured datasets",
-        "Presented findings to stakeholders"
+        "managed large datasets",
+        "built explanatory models",
+        "cleaned and prepared data",
+        "collaborated with cross-functional teams",
+        "designed database structures",
+        "developed dashboards",
+        "expanded enterprise data storage",
+        "recommended platform upgrades",
+        "conducted end-to-end data collection",
+        "analyzed quantitative data",
+        "managed research equipment",
+        "supported product development"
       ],
       "publications_projects_related": [
-        "Machine Learning capstone project using supervised learning"
+        "producing 30 publications and 20+ presentations"
       ],
       "years_experience_matching": [
         {
-          "area": "Machine Learning",
+          "area": "data analysis",
           "years": null,
-          "evidence_snippet": "Built regression models for customer churn prediction"
+          "evidence_snippet": "Aug 2021 – Present"
         }
       ],
       "bullets": [
         {
           "bullet_id": "B001",
           "section": "Experience",
-          "text_raw": "Built regression models for customer churn prediction using Python.",
-          "text_normalized": "Built regression models for customer churn prediction using python.",
-          "keywords_present_normalized": ["regression", "python"]
+          "text_raw": "Managed large datasets with 20K observations using regular expressions and selected key variables to build statistical models.",
+          "text_normalized": "managed large datasets (20k observations) using regular expressions and selected key variables to build statistical models",
+          "keywords_present_normalized": ["large datasets", "statistical models"]
         },
         {
           "bullet_id": "B002",
           "section": "Experience",
-          "text_raw": "Developed classification models for marketing analytics projects.",
-          "text_normalized": "Developed classification models for marketing analytics projects.",
-          "keywords_present_normalized": ["classification"]
+          "text_raw": "Built explanatory models for use cases and presented insights to 100+ project stakeholders and 40+ non-technical audiences.",
+          "text_normalized": "built explanatory models and presented insights to stakeholders",
+          "keywords_present_normalized": ["models", "insights", "communication"]
         },
         {
           "bullet_id": "B003",
           "section": "Experience",
-          "text_raw": "Collaborated with cross-functional teams to deliver analytics insights.",
-          "text_normalized": "Collaborated with cross-functional teams to deliver analytics insights.",
-          "keywords_present_normalized": ["collaboration"]
+          "text_raw": "Cleaned and prepared data for predictive modeling using information from 1,200+ customers across construction and financial sectors.",
+          "text_normalized": "cleaned and prepared data for predictive modeling",
+          "keywords_present_normalized": ["predictive modeling"]
         },
         {
           "bullet_id": "B004",
-          "section": "Projects",
-          "text_raw": "Implemented supervised learning techniques in a machine learning capstone project.",
-          "text_normalized": "Implemented supervised learning techniques in a machine learning capstone project.",
-          "keywords_present_normalized": ["supervised learning", "machine learning"]
+          "section": "Experience",
+          "text_raw": "Collaborated with 30+ data analysts, data scientists, and project managers on multiple concurrent projects.",
+          "text_normalized": "collaborated with cross-functional teams",
+          "keywords_present_normalized": ["collaboration"]
+        },
+        {
+          "bullet_id": "B005",
+          "section": "Experience",
+          "text_raw": "Provided technical support for new software systems by designing database structures and tables based on 20+ business requirements.",
+          "text_normalized": "designed database structures and tables based on business requirements",
+          "keywords_present_normalized": ["database design"]
+        },
+        {
+          "bullet_id": "B006",
+          "section": "Experience",
+          "text_raw": "Developed dashboards using SSRS and Tableau to track 30+ KPIs across departmental operations.",
+          "text_normalized": "developed dashboards using ssrs and tableau",
+          "keywords_present_normalized": ["ssrs", "tableau"]
+        },
+        {
+          "bullet_id": "B007",
+          "section": "Experience",
+          "text_raw": "Expanded enterprise data storage from 25TB to 60TB by optimizing archival database architecture.",
+          "text_normalized": "optimized archival database architecture to expand storage",
+          "keywords_present_normalized": ["database architecture"]
+        },
+        {
+          "bullet_id": "B008",
+          "section": "Experience",
+          "text_raw": "Recommended platform upgrades following internal audits, improving outage recovery time by 80%.",
+          "text_normalized": "recommended platform upgrades improving outage recovery time",
+          "keywords_present_normalized": []
+        },
+        {
+          "bullet_id": "B009",
+          "section": "Experience",
+          "text_raw": "Conducted end-to-end data collection using qualitative and quantitative methods for 10+ research projects.",
+          "text_normalized": "conducted end-to-end data collection using qualitative and quantitative methods",
+          "keywords_present_normalized": ["quantitative analysis"]
+        },
+        {
+          "bullet_id": "B010",
+          "section": "Experience",
+          "text_raw": "Analyzed quantitative data with a 7-member research team, producing 30 publications and 20+ presentations.",
+          "text_normalized": "analyzed quantitative data producing publications and presentations",
+          "keywords_present_normalized": ["quantitative analysis"]
+        },
+        {
+          "bullet_id": "B011",
+          "section": "Experience",
+          "text_raw": "Managed $50K in research equipment and trained 60+ undergraduate students on proper usage.",
+          "text_normalized": "managed research equipment and trained students",
+          "keywords_present_normalized": ["training"]
+        },
+        {
+          "bullet_id": "B012",
+          "section": "Experience",
+          "text_raw": "Supported development of 10+ new products launched in Q1 2019.",
+          "text_normalized": "supported development of new products",
+          "keywords_present_normalized": []
         }
       ]
     }
   },
   "overlap": {
     "overlapping_keywords_normalized": [
-      "machine learning",
-      "regression",
-      "classification",
-      "supervised learning",
-      "python",
-      "sql",
-      "tensorflow",
-      "github",
-      "collaboration",
-      "statistics"
+      "collaboration"
     ],
-    "overlapping_hard_skills": [
-      "Machine Learning",
-      "Regression",
-      "Classification",
-      "Statistics"
-    ],
-    "overlapping_tools": [
-      "Python",
-      "SQL",
-      "TensorFlow",
-      "GitHub"
-    ]
+    "overlapping_hard_skills": [],
+    "overlapping_tools": []
   },
   "flags": {
     "pdf_parse_failed": false,
@@ -1152,60 +1197,60 @@ Run the sequence and provide the output for all three steps clearly labeled.
 ```
 ## Node 2 Output — Judge
 
-```xml
-<thinking>
-I will only use the Gatekeeper JSON. I compare JD requirements (skills/tools/responsibilities) to resume evidence and overlap arrays.
-Overlap exists for core terms: machine learning, regression, classification, statistics, python, sql, tensorflow, github, collaboration.
-Gaps exist for preferred tooling and infrastructure: pytorch, gcp, docker, pyspark. Resume also does not explicitly show deployment/productionization, business impact measurement, or recommendation systems / deep learning / reinforcement learning beyond general mention.
-Given strong partial overlap on fundamentals but missing several preferred qualifications and lifecycle elements, overall alignment is moderate.
-Rewrite strategy: strengthen bullets that already reference modeling and collaboration by clarifying structured dataset work and stakeholder communication, while explicitly prohibiting adding missing tools or JD-only claims. Keep bullets that already mention supervised learning and ML capstone as highlight items.
+```<thinking>
+The job description requires machine learning lifecycle ownership, regression/classification models, supervised/unsupervised learning, Python, SQL, GitHub, and ML frameworks. 
+
+The resume shows experience with statistical models, predictive modeling, large datasets, database design, dashboards, and collaboration. However, there is no explicit mention of Python, SQL, GitHub, regression, classification, supervised/unsupervised learning, ML frameworks, or deployment.
+
+Overlap is minimal and primarily around collaboration and general modeling concepts. No tools overlap. No explicit machine learning lifecycle ownership or programming skills are stated.
+
+Therefore alignment is weak to moderate due to modeling exposure and large dataset handling but major tool and ML method gaps exist.
 </thinking>
 
 <verdict>
   <status>OK</status>
-  <alignment_score>3</alignment_score>
-  <alignment_summary>Moderate alignment: strong overlap on core ML fundamentals (Python/SQL, regression/classification, statistics) with notable gaps in preferred tooling (PyTorch, GCP, Docker, PySpark) and ML lifecycle/deployment evidence.</alignment_summary>
+  <alignment_score>2</alignment_score>
+  <alignment_summary>Resume demonstrates general data analysis and modeling experience but lacks explicit machine learning techniques, programming languages, and required ML tools.</alignment_summary>
 
   <strengths>
-    <item>Direct overlap in machine learning, regression, classification, and statistics evidenced in resume bullets B001, B002, and B004.</item>
-    <item>Tool overlap includes Python, SQL, TensorFlow, and GitHub consistent with JD required and preferred tool set.</item>
-    <item>Collaboration and stakeholder-facing communication appears in B003 and resume responsibilities.</item>
+    <item>Experience managing large datasets and building statistical and predictive models aligns with core modeling responsibilities.</item>
+    <item>Demonstrated collaboration with cross-functional stakeholders aligns with teamwork expectations.</item>
   </strengths>
 
   <gaps>
-    <item>Preferred tools not evidenced in resume: PyTorch, GCP, Docker, PySpark; avoid claiming experience with these.</item>
-    <item>No explicit evidence of deployment/productionization or measuring business impact, which is emphasized in JD responsibilities.</item>
-    <item>No explicit evidence of recommendation systems, deep learning, or reinforcement learning beyond general interest.</item>
+    <item>No explicit mention of Python, SQL, GitHub, or ML frameworks required by the role.</item>
+    <item>No direct reference to regression, classification, supervised or unsupervised learning techniques.</item>
+    <item>No evidence of deployment or productionization of models.</item>
   </gaps>
 
   <rewrite_targets>
     <bullet id="B001">
       <priority>high</priority>
-      <instruction>Clarify the modeling work context and reference structured dataset handling or evaluation steps if present in the same role, without adding new tools or metrics.</instruction>
-      <keywords_to_emphasize>regression, machine learning, python</keywords_to_emphasize>
-      <constraint>Do NOT add new tools (e.g., PyTorch, GCP, Docker) or new metrics/impact claims not in the original bullet or same job entry.</constraint>
-      <placement>Keep under Experience; place early as a top technical bullet.</placement>
+      <instruction>Emphasize statistical modeling and large dataset handling in language closer to machine learning and structured data context without adding new tools.</instruction>
+      <keywords_to_emphasize>statistical models, large datasets</keywords_to_emphasize>
+      <constraint>Do not introduce programming languages or ML techniques not present.</constraint>
+      <placement>Top bullet under Data Analyst role.</placement>
     </bullet>
 
     <bullet id="B002">
       <priority>medium</priority>
-      <instruction>Strengthen clarity that the classification models were built on structured data and tie to analytical outcomes in neutral terms, without inventing business impact.</instruction>
-      <keywords_to_emphasize>classification, statistics</keywords_to_emphasize>
-      <constraint>Do NOT claim deployment, A/B testing, or measured business impact unless explicitly stated in the original resume entry.</constraint>
-      <placement>Keep under Experience; follow B001.</placement>
+      <instruction>Highlight analytical insights and stakeholder impact more strongly.</instruction>
+      <keywords_to_emphasize>models, insights, stakeholders</keywords_to_emphasize>
+      <constraint>Do not add machine learning terminology.</constraint>
+      <placement>Immediately after B001.</placement>
     </bullet>
 
     <bullet id="B003">
-      <priority>medium</priority>
-      <instruction>Improve specificity of collaboration and communication by naming stakeholders or deliverables only if already present in the same job entry; avoid adding new cross-functional scope.</instruction>
-      <keywords_to_emphasize>collaboration, communication</keywords_to_emphasize>
-      <constraint>Do NOT add new stakeholders, teams, or leadership claims not present in the original resume entry.</constraint>
-      <placement>Keep under Experience; after technical bullets.</placement>
+      <priority>high</priority>
+      <instruction>Strengthen predictive modeling language to emphasize structured data preparation and modeling workflow.</instruction>
+      <keywords_to_emphasize>predictive modeling, data preparation</keywords_to_emphasize>
+      <constraint>Do not add regression/classification unless stated.</constraint>
+      <placement>Within top three bullets of Data Analyst role.</placement>
     </bullet>
   </rewrite_targets>
 
-  <no_change>B004</no_change>
-  <highlight>B001, B004</highlight>
+  <no_change>B004, B005, B006, B007, B008, B009, B010, B011, B012</no_change>
+  <highlight>B001, B003</highlight>
 
   <flags>
     <flag>MISSING_ADVANCED_TOOLS</flag>
@@ -1214,10 +1259,26 @@ Rewrite strategy: strengthen bullets that already reference modeling and collabo
 ```
 ## Node 3 Output — Worker
 ```
-- Built machine learning regression models for customer churn prediction using Python on structured datasets.
-- Developed classification models for marketing analytics using statistical techniques on structured data.
-- Collaborated with cross-functional teams to deliver analytics insights and present findings to stakeholders.
-- Implemented supervised learning techniques in a machine learning capstone project.
+Data Analyst | Aug 2021 – Present
+Resume Worded — London, United Kingdom
+- Managed large structured datasets with 20K observations using regular expressions, selecting key variables to develop statistical models.
+- Built explanatory models for defined use cases and delivered analytical insights to 100+ project stakeholders and 40+ non-technical audiences.
+- Cleaned and prepared structured data for predictive modeling using information from 1,200+ customers across construction and financial sectors.
+- Collaborated with 30+ data analysts, data scientists, and project managers on multiple concurrent projects.
+
+Data Specialist | Oct 2019 – Jul 2021
+Polyhire — London, United Kingdom
+- Provided technical support for new software systems by designing database structures and tables based on 20+ business requirements.
+- Developed dashboards using SSRS and Tableau to track 30+ KPIs across departmental operations.
+- Expanded enterprise data storage from 25TB to 60TB by optimizing archival database architecture.
+- Recommended platform upgrades following internal audits, improving outage recovery time by 80%.
+
+Research Assistant | Nov 2018 – Sep 2019
+Growthsi — London, United Kingdom & Barcelona, Spain
+- Conducted end-to-end data collection using qualitative and quantitative methods for 10+ research projects.
+- Analyzed quantitative data with a 7-member research team, producing 30 publications and 20+ presentations.
+- Managed $50K in research equipment and trained 60+ undergraduate students on proper usage.
+- Supported development of 10+ new products launched in Q1 2019.
 ```
 
 ## 2.5 Value Definition (The KPI Dashboard)
