@@ -1,4 +1,4 @@
-# Process Design Document (PDD) - Milestone 3
+# Process Design Document (PDD) - Working Draft
 **Team Name:** Albina, Jack and Sanjog (Team JAS)
 
 **Project Title:** Intelligent Resume Editor Assistant
