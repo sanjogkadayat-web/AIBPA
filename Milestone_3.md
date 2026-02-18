@@ -1,10 +1,8 @@
 
-# Process Design Document (PDD) - Working Draft
+# Process Design Document (PDD) - Final Release 
 **Team Name:** Albina, Jack and Sanjog (Team JAS)
 
 **Project Title:** Intelligent Resume Editor Assistant
-
-**Status:** Week 4 (Logic Design)
 
 ## Part 1: Process Analysis
 
@@ -1606,3 +1604,7 @@ Output PASS or FAIL.
 [RESULT] -> FINAL RESUME
 
 * Final output delivered: Worker’s repaired resume bullets (PASS-compliant).
+
+## Part 4: The Control Room 
+
+### 4.1 The V3.0 Logic Map (Final Architecture)
