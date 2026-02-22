@@ -1692,6 +1692,9 @@ graph LR
 
 *   **Tool Name:** Resume Compliance & Scope Auditor
 *   **Input Variable:** 
+      - {{original_resume}}  → System-of-Record (source of truth)
+      - {{judge_verdict}}    → XML containing rewrite targets and constraints
+      - {{worker_output}}    → Rewritten resume from Worker node
 *   **Fatal Errors (The Rules):**
     1. Metric Integrity Risk
     2. Scope Inflation Risk
@@ -1729,8 +1732,6 @@ You must NOT:
 
 You may only determine whether the output is safe to deliver or must be escalated.
 
----
-
 ## A — AUDIENCE
 
 Internal Control Room System:
@@ -1741,7 +1742,6 @@ Your decision determines whether:
 - The resume is released to the user, or
 - The resume is escalated for human review.
 
----
 
 ## F — FORMAT
 
@@ -1783,8 +1783,6 @@ Field Rules:
 
 - reason:
   Concise explanation identifying the detected issue (if any).
-
----
 
 ## T — TASK
 
@@ -1861,8 +1859,6 @@ If detected:
 error_type = "structural"
 action = "ESCALATE"
 
----
-
 ## DECISION LOGIC
 
 If no fatal category triggered:
@@ -1875,8 +1871,6 @@ If any fatal category triggered:
 - risk_score ≥ 3
 - flagged = true
 - action = "ESCALATE"
-
----
 
 ## NO OVERRIDE RULE
 
