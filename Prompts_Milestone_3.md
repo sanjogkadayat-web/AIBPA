@@ -124,7 +124,6 @@ Once the risks are identified, generate **Section 4.1: V3.0 Logic Map** using `m
   `Resume + Job Description → Router → Gatekeeper → Judge → Worker`
 
 * **The Upgrade:** Expand the flow to include:
-  - A Risk Check decision point
   - An Auditor Node
   - A Human-in-the-Loop (HITL) path
 
