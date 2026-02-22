@@ -131,7 +131,7 @@ Once the risks are identified, generate **Section 4.1: V3.0 Logic Map** using `m
   - Risk Detected → Human Review / Stop
 
 **YOUR TURN:**
-Begin Phase 1. Ask your first question about the difficult-to-read resume text.
+Begin Phase 1. Ask your first question about the Low Quality resume text.
 ```
 
 ---
