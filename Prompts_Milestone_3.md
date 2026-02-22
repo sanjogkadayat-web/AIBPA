@@ -77,25 +77,24 @@ Initialize the **SCRATCH PAD** and request:
 ### Low Quality resume text 
 ```
 Data Analyst / Analytics Lead
-NorthRiver Financial Group March 2021 – Feb 2023 Remote Sometimes
+NorthRiver Financial Group March 2021 – Now Remote Sometimes
 
 Responsible for business intelligence reporting and financial performance analysis.
 Developed executive dashboards for CFO covering revenue variance, cost allocation, and quarterly risk exposure.
 Automated ETL workflows (initially Alteryx, later transitioned to Airflow), reducing manual processing time by 35–40%.
-Managed large transaction datasets (100M+ rows spanning 6+ years).
+Managed large transaction dataset.
 Built forecasting models comparing ARIMA and Prophet; improved MAPE from 14% to under 9%.
-Supported regulatory reporting in coordination with compliance team.
-Mentored two junior analysts informally during onboarding cycles.
+Helped two junior analysts informally during onboarding cycles.
 Environment: SQL Server, Tableau Server, Python 3.x, Excel (including VBA), SharePoint.
 
 Data Analytics Intern
-CivicMetrics Lab | Washington, D May 2020 – Aug 2020
+CivicMetrics Lab | Washington, DC May 2020 – Aug 2020
 
 Worked on public-sector analytics and data cleaning projects (contract role).
 Cleaned and standardized 10+ open-data CSV files with inconsistent schemas and missing location codes.
-Created geospatial heatmaps in R using ggplot and leaflet for policy presentations.
-Built Python scripts to extract structured data from municipal budget PDFs.
-Contributed to a policy memo that included three data visualizations; recommendations were later referenced by client stakeholders.
+Made geospatial heatmaps in R using ggplot and leaflet for policy presentations.
+Built Python scripts to extract structured data from municipal budget.
+Did a policy memo that included three data visualizations; recommendations were later referenced by client stakeholders.
 Used R, Python, Excel, Google Sheets, and Git for collaboration.
 ```
 
