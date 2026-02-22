@@ -50,7 +50,7 @@ Follow these steps strictly:
 4. After receiving it:
    - Extract the **current workflow architecture and routing logic**.
    - Update the Scratch Pad clearly.
-5. Then ask for **Item 2: A difficult to read resume text (Stress test Input)**
+5. Then ask for **Item 2: Low Quality Resume (Stress test Input)**
 6. **Stop and wait** again.
 7. Update the Scratch Pad with:
    - Identified risks  
@@ -74,7 +74,7 @@ Initialize the **SCRATCH PAD** and request:
 
 ---
 
-### Difficult to read resume text 
+### Low Quality resume text 
 ```
 Data Analyst / Analytics Lead
 NorthRiver Financial Group March 2021 – Feb 2023 Remote Sometimes
@@ -112,7 +112,7 @@ Used R, Python, Excel, Google Sheets, and Git for collaboration.
 
 **PHASE 1: THE INTERVIEW**
 
-1. Ask me **ONE question at a time** about the difficult-to-read resume text (the new stress-test input).
+1. Ask me **ONE question at a time** about the Low Quality Resume (the new stress-test input).
 2. Goal: Identify specific **Failure Modes** (e.g., fabricated metrics, unclear achievements, conflicting dates) that might break our existing logic.
 3. *Constraint:* Do not ask about ROI or business value yet. Focus strictly on resume quality and alignment risks.
 
