@@ -1650,3 +1650,40 @@ Output PASS or FAIL.
 ## Part 4: The Control Room 
 
 ### 4.1 The V3.0 Logic Map (Final Architecture)
+
+### 4.1 The V3.0 Logic Map (Final Architecture)
+*The **HITL (Human-in-the-Loop)** Routing.*
+
+```mermaid
+graph LR
+
+    A[Resume + Job Description] --> R{Router}
+    R --> G[Gatekeeper — Extraction]
+
+    G --> S{Structural Risk Check}
+    S -- Clean --> J[Judge — Alignment Reasoning]
+    S -- Formatting Warning --> J
+
+    J --> W[Worker — Drafting]
+
+    W --> M{Metric Integrity Check}
+    M -- Metrics Altered --> H[HITL Review Required]
+    M -- Metrics Intact --> AU[Auditor — Grounding Compliance]
+
+    AU --> D{Grounding PASS?}
+
+    D -- Yes --> F[Final Resume Output]
+    D -- No --> H
+
+    H --> U[Human Review / Correction]
+    U --> F
+```
+
+### 4.2 The Risk Radar (Minesweeper)
+
+### 4.3 The Auditor Spec (SDD)
+
+### 4.4 Validation Log (Red Teaming)
+
+
+## Part 5: The Business Case (Strategy)
