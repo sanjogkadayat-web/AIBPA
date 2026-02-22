@@ -1650,8 +1650,6 @@ Output PASS or FAIL.
 ## Part 4: The Control Room 
 
 ### 4.1 The V3.0 Logic Map (Final Architecture)
-
-### 4.1 The V3.0 Logic Map (Final Architecture)
 *The **HITL (Human-in-the-Loop)** Routing.*
 
 ```mermaid
