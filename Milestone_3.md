@@ -1655,26 +1655,35 @@ Output PASS or FAIL.
 ```mermaid
 graph LR
 
-    A[Resume + Job Description] --> R{Router}
-    R --> G[Gatekeeper — Extraction]
+  A["Resume + Job Description"] --> R["🧭 Router — Input Risk Screening"]
+  R --> G["🤖 Gatekeeper — Extraction"]
+  G --> J["⚖️ Judge — Alignment Reasoning"]
+  J --> W["✍️ Worker — Drafting"]
 
-    G --> S{Structural Risk Check}
-    S -- Clean --> J[Judge — Alignment Reasoning]
-    S -- Formatting Warning --> J
+  W --> C["🧪 Critic — Grounding Audit"]
+  C --> D{"💎 Grounding Pass?"}
 
-    J --> W[Worker — Drafting]
+  D -- No --> W
+  D -- Yes --> AU["🔎 Auditor — Compliance + Scope Verification"]
 
-    W --> M{Metric Integrity Check}
-    M -- Metrics Altered --> H[HITL Review Required]
-    M -- Metrics Intact --> AU[Auditor — Grounding Compliance]
+  AU --> E{"⚠️ Risk Detected?"}
 
-    AU --> D{Grounding PASS?}
+  E -- Yes --> H["👤 Human-in-the-Loop Review"]
+  H --> F{"Approve Output?"}
 
-    D -- Yes --> F[Final Resume Output]
-    D -- No --> H
+  F -- No --> STOP["⛔ Stop / Return Original Resume"]
+  F -- Yes --> FINAL["✅ Final Resume"]
 
-    H --> U[Human Review / Correction]
-    U --> F
+  E -- No --> FINAL
+
+  style R fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style G fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style J fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style W fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style C fill:#E6FFFA,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style AU fill:#FDE8FF,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+  style H fill:#FFE4B5,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
+
 ```
 
 ### 4.2 The Risk Radar (Minesweeper)
