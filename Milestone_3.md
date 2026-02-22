@@ -1692,9 +1692,9 @@ graph LR
 
 *   **Tool Name:** Resume Compliance & Scope Auditor
 *   **Input Variable:**
-  - {{original_resume}}  → System-of-Record (source of truth)
-  - {{judge_verdict}}    → XML containing rewrite targets and constraints
-  - {{worker_output}}    → Rewritten resume from Worker node
+    - {{original_resume}}  → System-of-Record (source of truth)
+    - {{judge_verdict}}    → XML containing rewrite targets and constraints
+    - {{worker_output}}    → Rewritten resume from Worker node
 *   **Fatal Errors (The Rules):**
     1. Metric Integrity Risk
     2. Scope Inflation Risk
