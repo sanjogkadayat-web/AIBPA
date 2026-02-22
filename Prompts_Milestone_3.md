@@ -150,8 +150,6 @@ The Auditor operates AFTER the Critic grounding loop and BEFORE final delivery.
 
 **TASK:** Write the `### AUDITOR_LOGIC` section for our Master System Prompt.
 
----
-
 **INPUTS:**
 - {{original_resume}}
 - {{judge_verdict}}
@@ -161,12 +159,9 @@ The Auditor evaluates the Worker’s final rewritten resume against:
 1. The original resume (source of truth)
 2. The Judge’s alignment instructions
 
----
-
 **CONSTRAINT:**
 The output must be a self-contained **RAFT Prompt** (Role, Audience, Format, Task) that defines exactly how the AI behaves at the Auditor node.
 
----
 
 **REQUIREMENTS (Governance Scope):**
 
@@ -196,7 +191,6 @@ The output must be a self-contained **RAFT Prompt** (Role, Audience, Format, Tas
 5. **No Override Rule:**
    The Auditor cannot fix content. It can only PASS or ESCALATE.
 
----
 
 **FORMAT:**
 Return strict JSON only.
@@ -212,7 +206,6 @@ json
 
 No commentary outside JSON.
 
----
 
 **YOUR TURN:**
 Generate the `### AUDITOR_LOGIC` RAFT prompt block in valid Markdown.
