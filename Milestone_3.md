@@ -1650,40 +1650,39 @@ Output PASS or FAIL.
 ## Part 4: The Control Room 
 
 ### 4.1 The V3.0 Logic Map (Final Architecture)
-*The **HITL (Human-in-the-Loop)** Routing.*
 
 ```mermaid
 graph LR
 
   A["Resume + Job Description"] --> R["🧭 Router — Input Risk Screening"]
-  R --> G["🤖 Gatekeeper — Extraction"]
+
+  R -->|VALID| G["🤖 Gatekeeper — Extraction"]
+  R -->|"AMBIGUOUS (Proceed w/ Risk Flag)"| G
+  R -->|INSUFFICIENT| STOP["⛔ Stop / Request New Inputs"]
+
   G --> J["⚖️ Judge — Alignment Reasoning"]
   J --> W["✍️ Worker — Drafting"]
 
-  W --> C["🧪 Critic — Grounding Audit"]
+  W --> C["🧪 Critic"]
   C --> D{"💎 Grounding Pass?"}
 
-  D -- No --> W
-  D -- Yes --> AU["🔎 Auditor — Compliance + Scope Verification"]
+  D -->|No| W
+  D -->|Yes| AU["🔎 Auditor — Compliance & Severity Scoring"]
 
   AU --> E{"⚠️ Risk Detected?"}
 
-  E -- Yes --> H["👤 Human-in-the-Loop Review"]
-  H --> F{"Approve Output?"}
+  E -->|No| FINAL["✅ Final Resume (Safe Output)"]
+  E -->|Yes| HITL["👤 Human-in-the-Loop Review"]
 
-  F -- No --> STOP["⛔ Stop / Return Original Resume"]
-  F -- Yes --> FINAL["✅ Final Resume"]
-
-  E -- No --> FINAL
+  HITL -->|Approve| FINAL
+  HITL -->|Reject| STOP
 
   style R fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
   style G fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
   style J fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
   style W fill:#FFF4DD,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
   style C fill:#E6FFFA,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
-  style AU fill:#FDE8FF,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
-  style H fill:#FFE4B5,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
-
+  style AU fill:#FFE6E6,stroke:#333,stroke-width:1px,stroke-dasharray:5 5
 ```
 
 ### 4.2 The Risk Radar (Minesweeper)
