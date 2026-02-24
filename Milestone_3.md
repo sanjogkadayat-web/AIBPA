@@ -2160,3 +2160,18 @@ This is a **governance maturity KPI.**
 | Risk Reduction      | Hallucination Prevention Rate |
 | Governance Accuracy | Escalation Precision Rate     |
 
+### 5.2 The ROI Analysis 
+
+**Financial Fact Sheet** - https://docs.google.com/spreadsheets/d/1tX7OjpmNXIKWZMehaqa3MQ1WrX7H--1jFhEAlcTpJ0A/edit?usp=sharing
+
+**Financial Summary**
+*   **Total Cost of Ownership (Year 1):** $2,072.80  
+    *   *(Includes Dev Time + API Costs)*
+
+*   **Total Value Generated (Year 1):** $9,555  
+    *   *(637 Hours Saved × $15/hr)*
+
+*   **Net Profit:** $7,007.80  
+
+*   **The Break-Even Point:** 77 Runs
+
