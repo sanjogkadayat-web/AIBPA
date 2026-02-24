@@ -2047,3 +2047,116 @@ ESCALATE
 - [ ] VULNERABLE: The system failed 1 or more tests. Patching required.
 
 ## Part 5: The Business Case (Strategy)
+
+### 5.1 The Pain Audit 
+
+#### Smart KPI Evaluation
+| Candidate KPI                                               | Value Driver                       | SMART Score (1–5) | Critique / Refinement                                                                                                                                                              |
+| ----------------------------------------------------------- | ---------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Average Minutes Saved per Application**                   | Worker automation efficiency       | 5                 | Specific (minutes saved), measurable (time tracking), achievable (baseline known), relevant (direct labor cost impact), time-bound (per application/week). Strong primary ROI KPI. |
+| **Hallucination Prevention Rate (%)**                       | Critic effectiveness               | 5                 | Defined as: 1 − (post-delivery hallucination incidents / total runs). Directly tied to trust & risk reduction. Must log incidents monthly.                                         |
+| **Escalation Precision Rate (%)**                           | Auditor + HITL governance accuracy | 4.5               | % of escalations validated by HITL as legitimate risk. Measures over-flagging vs under-flagging. Add monthly reporting cadence.                                                    |
+| **Alignment Improvement Score (Pre vs Post Rewrite Delta)** | Judge + Worker alignment quality   | 4                 | Measures increase in keyword overlap or alignment score from Gatekeeper → Final. Needs standardized scoring method to ensure consistency.                                          |
+
+#### KPI Translation
+
+*KPI 1 — Average Minutes Saved per Application*
+
+ **Real Metric:**
+Annual labor hours recovered (and associated labor cost savings).
+
+**The Pain:**
+“I’m spending 5–8 hours a week rewriting resumes instead of networking, preparing for interviews, or applying to more roles.”
+  At scale:
+  * Lost productivity
+  * Delayed applications
+  * Opportunity cost
+  * Burnout
+
+**The Proxy Metric:**
+Average minutes saved per application
+= (Manual baseline time – AI-assisted time)
+
+Baseline: 90 minutes
+AI time: 10–15 minutes
+
+**SMART Goal:**
+- "Reduce average resume tailoring time from 90 minutes to 15 minutes per application by Q4 2026."
+
+Executive Framing:
+* 75 minutes saved per application
+* 5 applications per week → 6+ hours saved weekly
+* 300+ hours saved annually per user
+
+This translates directly into:
+* Higher job application throughput
+* Higher placement probability
+* Measurable productivity gain
+
+*KPI 2 — Hallucination Prevention Rate*
+
+**Real Metric:**
+Risk exposure from fabricated claims reaching recruiters.
+
+**The Pain:**
+“If my resume contains a fabricated metric or inflated claim, I could lose credibility, interviews, or even job offers.”
+  At scale:
+
+  * Reputation damage
+  * Legal exposure (false claims)
+  * Trust erosion in AI tool
+
+**The Proxy Metric:**
+Hallucination Prevention Rate
+= 1 − (Fabricated or scope-inflated outputs that pass into final output ÷ Total outputs)
+
+Measured monthly.
+
+**SMART Goal:**
+
+- "Reduce post-release hallucination incidents from 3% to under 0.5% of outputs by Q2 2026."**
+
+Executive Framing:
+* <1 in 200 resumes contains compliance risk
+* Demonstrates enterprise-grade AI governance
+* Enables institutional adoption (career centers, universities, enterprise HR)
+
+*KPI 3 — Escalation Precision Rate*
+
+**Real Metric:**
+Governance efficiency without over-blocking productivity.
+
+**The Pain:**
+“If the system flags too much, users lose trust.
+If it flags too little, unsafe resumes get through.”
+
+Over-flagging → friction
+Under-flagging → risk exposure
+
+**The Proxy Metric:**
+Escalation Precision Rate
+= (Valid escalations confirmed by Human-in-the-Loop ÷ Total escalations)
+
+Measured monthly.
+
+**SMART Goal:**
+
+- "Increase escalation precision from 70% to 90% validated risk accuracy by Q3 2026."
+
+Executive Framing:
+* Ensures governance is targeted, not noisy
+* Reduces unnecessary manual reviews
+* Maintains system trust
+* Balances safety with efficiency
+
+This is a **governance maturity KPI.**
+
+
+**These three KPIs collectively represent:**
+
+| Dimension           | KPI                           |
+| ------------------- | ----------------------------- |
+| Productivity        | Minutes Saved per Application |
+| Risk Reduction      | Hallucination Prevention Rate |
+| Governance Accuracy | Escalation Precision Rate     |
+
