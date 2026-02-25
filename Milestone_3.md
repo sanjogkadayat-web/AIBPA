@@ -2166,7 +2166,7 @@ This is a **governance maturity KPI.**
 
 **Financial Summary**
 *   **Total Cost of Ownership (Year 1):** $2,072.80  
-    *   *(Includes Dev Time + API Costs)*
+    *   *(Includes Dev Time + Maintenance + API Costs)*
 
 *   **Total Value Generated (Year 1):** $9,555  
     *   *(637 Hours Saved × $15/hr)*
@@ -2174,4 +2174,76 @@ This is a **governance maturity KPI.**
 *   **Net Profit:** $7,007.80  
 
 *   **The Break-Even Point:** 77 Runs
+*   **Payback Period:** 11 Weeks
+
+### 5.3 Implementation Strategy 
+
+* **Build vs. Buy:**
+
+  * **Contextual Intelligence:**  
+    Traditional resume builders and ATS keyword tools operate on static templates and keyword density optimization. They cannot dynamically correlate a specific job description with a specific resume while enforcing grounding constraints against the original system-of-record.  
+    The V3.0 architecture (Router → Gatekeeper → Judge → Worker → Critic → Auditor → HITL) enables contextual alignment with deterministic guardrails. This allows dynamic tailoring without metric fabrication, title changes, or scope inflation—capabilities that off-the-shelf resume platforms do not provide.
+
+  * **Cost Efficiency:**  
+    Subscription-based resume SaaS platforms typically cost $20–$50 per user per month, regardless of usage volume. In contrast, the AI-driven orchestration model operates on a low marginal cost structure (~$0.20 per run).  
+    With moderate weekly usage, API-based automation delivers significantly higher ROI while avoiding recurring per-seat licensing fees. This model scales economically with volume and remains cost-controlled.
+
+  * **Governance Control:**  
+    Off-the-shelf tools do not support layered safety architecture. They cannot implement:
+    - Injection detection (Router)
+    - Structured extraction controls (Gatekeeper)
+    - Deterministic rewrite constraints (Judge)
+    - Grounding enforcement (Critic)
+    - Severity scoring (Auditor)
+    - Escalation thresholds (HITL)
+
+    V3.0 embeds governance directly into the workflow, reducing hallucination risk and compliance exposure. This level of layered safety is not configurable in commercial resume builders.
+
+  * **Agility:**  
+    Compliance rules and risk thresholds evolve. In a custom AI-controlled agent, prompts and logic layers (e.g., Auditor thresholds, Critic rules) can be updated immediately.  
+    Vendor-based platforms require feature requests, release cycles, or subscription tier upgrades.  
+    Building in-house ensures rapid iteration, version control, and alignment with institutional policies.
+
+
+* **Next Steps:**
+
+  1. **Infrastructure:**  
+     - Secure OpenAI API keys and configure environment variables.  
+     - Establish role-based access controls.  
+     - Set up logging database for KPI tracking (hallucination rate, escalation rate, time saved).  
+     - Choose orchestration layer (n8n for rapid deployment or lightweight custom web app with Node/Python backend).
+
+  2. **Integration:**  
+     - Implement node-based orchestration:
+       Resume Input → Router → Gatekeeper → Judge → Worker → Critic → Auditor → HITL Decision → Output.  
+     - Encode governance rules as modular prompt blocks.  
+     - Implement retry loop logic for Critic repair cycle.  
+     - Add structured logging for every node decision.
+
+  3. **Pilot Deployment:**  
+     - Conduct shadow-mode testing using 50 historical resume + job description pairs.  
+     - Log:
+       - Hallucination detection rate  
+       - Escalation precision  
+       - Time-to-output  
+     - Compare AI output vs. original manually tailored resumes.  
+     - Refine escalation thresholds before enabling live user-facing deployment.
+
+---
+
+[APPENDIX]
+
+### ChatGPT Links
+
+https://github.com/sanjogkadayat-web/AIBPA/blob/5f4cfca02ec339ddcf17409874c4ec95ace85524/Inputs%20and%20Links%20/ChatGPT%20Links.md
+
+1. Milestone 2 RAFT Implementation - https://chatgpt.com/share/698bf4ad-98ec-8012-a014-78e94a2e89f9
+2. Tool Auditing - https://chatgpt.com/share/698f94da-ffa0-8012-bc53-2a4f5787d038
+3. KPI Dashboard - https://chatgpt.com/share/698faff9-27d4-8012-a53c-694b6b57ba15
+4. Week 4 Checkpoint - https://chatgpt.com/share/6994df6d-b8b8-8012-b6b5-f8e572ceeafc
+5. Milestone 3 Full Workflow - [https://chatgpt.com/share/699c9c40-1b78-8012-b50d-1c1e649aded3](https://chatgpt.com/share/699dfc9b-3810-8012-af3b-1617d9ca8cde)
+
+### Sample Inputs 
+https://github.com/sanjogkadayat-web/AIBPA/blob/5f4cfca02ec339ddcf17409874c4ec95ace85524/Inputs%20and%20Links%20/Sample%20Inputs.md
+
 
