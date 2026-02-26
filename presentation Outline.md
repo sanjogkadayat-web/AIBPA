@@ -1,4 +1,6 @@
-# 🟢 FINAL GREEN LIGHT PITCH PACKAGE
+# 🟢 FINAL GREEN LIGHT PITCH PACKAGE 
+
+https://chatgpt.com/share/69a09fc7-f390-8012-9dbf-fd26d81ccece
 
 ---
 
