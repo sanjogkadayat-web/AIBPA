@@ -1,6 +1,5 @@
-## Segment 0: Context Priming (The Librarian)
-
-https://chatgpt.com/share/69a09fc7-f390-8012-9dbf-fd26d81ccece
+## Segment 0: Context Priming (The Librarian
+- https://chatgpt.com/share/69a09fc7-f390-8012-9dbf-fd26d81ccece
 
 **Goal:** Initialize the AI with the "Product" (Week 5 PDD) and the "Target" (Client Profile).
 
