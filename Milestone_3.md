@@ -1662,7 +1662,7 @@ graph LR
 
   R -->|VALID| G["🤖 Gatekeeper — Extraction"]
   R -->|"AMBIGUOUS (Proceed w/ Risk Flag)"| G
-  R -->|INSUFFICIENT| STOP["⛔ Stop / Request New Inputs"]
+  R -->|INSUFFICIENT| STOP["⛔ Stop / Give Reason and Request New Inputs"]
 
   G --> J["⚖️ Judge — Alignment Reasoning"]
   J --> W["✍️ Worker — Drafting"]
