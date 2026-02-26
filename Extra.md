@@ -1,0 +1,7 @@
+Value Translation
+
+| Technical Feature                                      | The "Level 1" Trap (Bad)                     | The "Level 3" Pitch (Good)                                                                                                                                                                           |
+| ------------------------------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Critic + Auditor with Retry-and-Revert Grounding Logic | “We added an audit layer to check outputs.”  | “We engineered a deterministic safeguard that prevents fabricated metrics and inflated claims from ever reaching recruiters — reducing exposure to lost interviews worth $5,000 per incident.”       |
+| Gatekeeper → Judge → Worker Modular Orchestration      | “The system rewrites resumes automatically.” | “We replaced manual keyword guessing with structured extraction and targeted rewriting — cutting resume tailoring time from 90 minutes to 15 minutes and returning 325 hours per year to each user.” |
+| Tri-State Router (VALID / AMBIGUOUS / INSUFFICIENT)    | “We validate inputs before processing.”      | “We prevent unsafe or manipulated inputs from entering the AI pipeline at all — driving an 86.7% reduction in unsafe outputs and making the system institution-ready.”                               |
