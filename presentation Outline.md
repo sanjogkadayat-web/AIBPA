@@ -1,5 +1,7 @@
 # Presenation Outline 
 
+https://chatgpt.com/share/69a09fc7-f390-8012-9dbf-fd26d81ccece
+
 ---
 
 ## **Slide 1 — Manual Resume Tailoring Is a Hidden Productivity and Risk Drain**
