@@ -163,18 +163,6 @@ It is authorizing a controlled, high-return operational upgrade.
 
 ---
 
-# 🧠 Strategic Note
-
-This 6-slide version is what you present when:
-
-* A CFO is present
-* An enterprise IT stakeholder is present
-* You expect quantitative pushback
-
-If the room is lighter-weight, you can remove Slide 5.
-
----
-
 
 
 
