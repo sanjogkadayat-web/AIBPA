@@ -1,4 +1,4 @@
-#FINAL PRESENTATION OUTLINE
+# FINAL PRESENTATION OUTLINE
 
 ## **Slide 1 — Manual Resume Tailoring Is a Hidden Productivity and Risk Drain**
 
