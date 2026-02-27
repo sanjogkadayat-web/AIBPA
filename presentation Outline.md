@@ -79,12 +79,6 @@ The ask is simple: approve pilot funding and deployment authorization. We move f
 This is not funding an experiment.
 It’s authorizing a controlled, high-return operational upgrade.
 
----
-
-If you'd like, I can now:
-
-* Condense this into a tighter 6-minute delivery version,
-* Or give you pacing guidance to sound more senior in the room.
 
 
 # 🟢 FINAL GREEN LIGHT PITCH PACKAGE 
