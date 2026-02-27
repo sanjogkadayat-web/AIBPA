@@ -102,31 +102,20 @@ This is conservative modeling — not optimistic projection.
 
 ---
 
-## **Slide 5 — Downside Protection: Conservative Sensitivity Analysis**
+## **Slide 5 — This Works Because It Aligns With Existing Behavior**
 
-*(CFO Protection Layer — Risk Compression)*
 
-**Visual:** 3-Column Sensitivity Table
+**Visual:** Current Behavior vs. Controlled Workflow Comparison
 
-| Scenario     | Unsafe Rate | Conversion | Risk Avoided | ROI  |
-| ------------ | ----------- | ---------- | ------------ | ---- |
-| Conservative | 10%         | 1%         | ~$40,000     | 22x  |
-| Base Case    | 20%         | 2%         | $160,000     | 89x  |
-| Aggressive   | 20%         | 3%         | ~$240,000    | 133x |
-
-**Speaker Notes (≈75 seconds):**
-
-We stress-tested the economics under conservative assumptions.
-
-Even if unsafe rates fall to 10% and only 1% convert to lost interviews, the pilot still avoids roughly $40,000 in exposure.
-
-At $1,800 marginal cost, that remains a 22x return.
-
-Under base case assumptions, we achieve 89x.
-
-This is asymmetric downside protection.
-
-Even in conservative scenarios, the model remains economically justified.
+Students are already using AI. That behavior will not reverse.
+The question is not whether AI is used — it’s whether it’s controlled.
+Today’s workflow is copy, paste, rewrite, and hope. There is no audit trail. No grounding enforcement. No risk visibility.
+With our system, the workflow changes minimally: upload, generate, optionally review flagged bullets, approve.
+Two additional steps. Approximately ten minutes of onboarding. No new dashboards. No institutional friction.
+The governance happens in the background.
+Adoption succeeds because we align with existing behavior — we simply embed control where none exists today.
+This is not behavior change.
+It is behavior refinement.
 
 ---
 
