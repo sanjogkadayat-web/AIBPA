@@ -1,6 +1,5 @@
----
 
-**SLIDE 0 — Title Slide (displayed while audience settles)**
+**SLIDE 0 — Title Slide**
 - Title: "Agentic Skills: Prompts + Code + Recipes"
 - Subtitle: "Group A Presentation"
 - Team Name: Team JAS
